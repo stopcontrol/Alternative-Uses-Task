@@ -1,0 +1,193 @@
+/* experiment.css */
+
+body {
+  background: #fff;
+	margin: 4px;
+	padding: 0;
+	font-size: 18px;
+	font-family: 'Times', FreeSerif, serif;
+  text-align: center;
+}
+
+br {
+    line-height: 25px;
+ }
+
+#jspsych_target {
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 3em;
+	text-align: center;
+}
+
+#jspsych_target pre {
+	text-align: center;
+}
+
+#instructions {
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#jspsych-survey-text-image {
+margin-top: 3em;
+}
+
+.jspsych-survey-text-preamble {
+margin-top: 3em;
+margin-bottom: 3em;
+}
+
+.jspsych-survey-likert-preamble {
+margin-top: 3em;
+margin-bottom: 3em;
+}
+
+
+
+
+
+/* jsPsych progress bar */
+#jspsych-progressbar-container {
+  color: #777;
+  border-bottom: 2px solid #dedede;
+  background-color: #f0000;
+  margin-bottom: 1em;
+  text-align: center;
+  padding: 10px 10px;
+}
+#jspsych-progressbar-container s {}
+#jspsych-progressbar-outer {
+  background-color: #dedede;
+  border-radius: 50px;
+  padding: 0.5px;
+  width: 500px;
+  margin: auto;
+}
+#jspsych-progressbar-inner {
+  background-color: #aaa;
+  /* #3EB3D7; */
+  width: 0%;
+  height: 0.5em;
+  border-radius: 50px;
+}
+
+label.jspsych-survey-multi-choice-text input[type="radio"] {
+  margin-right: 1.5em;
+  margin-bottom: 0.8em;
+}
+
+#jspsych-survey-multi-choice-next {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+.jspsych-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 0px 80px;;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Open Sans', 'Arial', sans-serif;
+  cursor: pointer;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.jspsych-survey-multi-choice-option {
+  line-height: 1px;
+  margin-top: 0.1em;
+}
+
+.jspsych-survey-multi-choice-question {
+  margin-top: 2.5em;
+
+ }
+
+ .jspsych-survey-multi-choice-text span.required {
+   color: darkred;
+ }
+
+ .jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-text {
+   text-align: center;
+   margin-top: 20px;
+ }
+
+ .jspsych-survey-multi-choice-option {
+   line-height: 10px;
+ }
+ .jspsych-survey-multi-choice-horizontal .jspsych-survey-multi-choice-option {
+   display: inline-block;
+   margin-left: 1em;
+   margin-right: 1em;
+   vertical-align: top;
+ }
+
+ /* PLUGIN: jspsych-survey-likert */
+
+ .jspsych-survey-likert-statement {
+   display:block;
+   font-size: 20px;
+   padding-top: 30px;
+   margin-top: 1em;
+   margin-bottom:20px;
+
+ }
+ .jspsych-survey-likert-opts {
+   list-style:none;
+   width:50%;
+   margin:auto;
+   padding:0 0 35px;
+   display:block;
+   font-size: 14px;
+   line-height:1.1em;
+ }
+
+ .jspsych-survey-likert-opt-label {
+   line-height: 1.3em;
+ }
+
+ .jspsych-survey-likert-opts:before {
+   content: '';
+   position:relative;
+   margin: auto;
+   top:11px;
+   /*left:9.5%;*/
+   display:block;
+   background-color:#efefef;
+   height:4px;
+   width:80%;
+ }
+
+ .jspsych-survey-likert-opts:last-of-type {
+   border-bottom: 0;
+ }
+
+ .jspsych-survey-likert-opts li {
+   display:inline-block;
+   /*width:19%;*/
+   text-align:center;
+   vertical-align: top;
+ }
+
+ .jspsych-survey-likert-opts li input[type=radio] {
+   display:block;
+   position:relative;
+   top:0;
+   left:50%;
+   margin-left:-6px;
+   width:20%;
+
+ }

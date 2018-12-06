@@ -1,0 +1,600 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="js/jquery.min.js"></script>
+    <script src="jspsych.js"></script>
+    <script src="plugins/jspsych-survey-multi-choice.js"></script>
+    <script src="plugins/jspsych-instructions.js"></script>
+    <script src="plugins/jspsych-survey-text.js"></script>
+	  <script src="plugins/jspsych-survey-text_fb.js"></script>
+    <script src="plugins/jspsych-survey-text2.js"></script>
+    <script src="plugins/jspsych-survey-likert.js"></script>
+    <script src="plugins/jspsych-survey-text_time.js"></script>
+    <!--script src="plugins/jspsych-survey-text_debrief.js"></script-->
+    <script src="plugins/jspsych-text.js"></script>
+    <script src="plugins/jspsych-single-stim.js"></script>
+	  <script src="plugins/jspsych-single-stim-bottom.js"></script>
+    <script src="plugins/jspsych-call-function.js"></script>
+    <script src="plugins/timeout.js"></script>
+    <link rel="stylesheet" href="css/jspsych2.css"></link>
+    <script src="plugins/timecount.js"></script>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript">
+
+
+	//	    timeLeft=10
+		    function timeMsg() {
+					--timeLeft
+					if(timeLeft < 0){timeLeft=0};
+		            $("#time").val(timeLeft);
+		            setTimeout("timeMsg()",1000);
+		    }
+
+
+		    $(document).ready(function() {
+		        $("#time").val(timeLeft);
+		        setTimeout("timeMsg()",1000);
+		    });
+
+		</script>
+		<script type="text/javascript">
+			function sendMail() {
+			    var link = "mailto:fwf.omfix@gmx.com"
+			             + "?cc=fwf.omfix@gmx.com"
+			             + "&subject=" + escape("This is my subject")
+			             + "&body=" + escape(document.getElementById('myText').value)
+			    ;
+
+			    window.location.href = link;
+			}
+			</script>
+
+			<!-- Add fancyBox main JS and CSS files -->
+			<script type="text/javascript" src="source2/jquery.fancybox.js?v=2.1.5"></script>
+			<link rel="stylesheet" type="text/css" href="source2/jquery.fancybox.css?v=2.1.5" media="screen" />
+			<script type="text/javascript">
+				$(document).ready(function() {
+
+					$('.fancybox').fancybox({
+						margin     : [0, 0, 0, 0],
+					});
+					$('.fancybox-media')
+						.attr('rel', 'media-gallery')
+						.fancybox({
+							openEffect : 'fade',
+							closeEffect : 'none',
+							prevEffect : 'none',
+							nextEffect : 'none',
+							topRatio    : 0,
+							arrows : false,
+							helpers : {
+								media : {},
+								buttons : {}
+							}
+						});
+
+			});
+			</script>
+				<style type="text/css">
+					.fancybox-custom .fancybox-skin {
+						box-shadow: 0 0 50px #222;
+					}
+				</style>
+  </head>
+  <body>
+
+
+    <div id="jspsych-target"></div>
+	<div id="inline1" style="width:400px;height:430px;display: none;">
+		<h3>Emotionsw&oumlrter</h3>
+		<p>fr&oumlhlich, verbl&uumlffend, hingerissen, verlockend, ergreifend</p>
+		<p>inspiriert, erhaben, spirituell, durchdringend</p>
+		<p>verliebt, liebevoll, sinnlich, z&aumlrtlich, erweichend</p>
+		<p>sentimental, vertr&aumlumt, nostalgisch, melancholisch</p>
+		<p>ruhig, entspannt, gelassen, bes&aumlnftigt, meditativ</p>
+		<p>energetisch, triumphal, aufgew&uumlhlt, stark, heroisch</p>
+		<p>angeregt, freudvoll, lebhaft, tanzend, vergn&uumlgt</p>
+		<p>unruhig, nerv&oumls, angespannt, ungeduldig, irritiert</p>
+		<p>traurig, betr&uumlbt</p>
+	</div>
+	<div id="inline2" style="width:400px;height:430px;display: none;">
+		<h3>Genrebezeichnungen</h3>
+		<p><b>Avantgarde</b>: Electroacoustic, Experimental music, Noise, Musique concr&egravete</p>
+		<p><b>Blues:</b> Blues rock, Country blues, Punk blues, Soul blues
+		<p><b>Country:</b> Alternative country, Blues country, Country rock, Bluegrass, Classic country</p>
+		<p><b>Electronic:</b> Ambient, Breakbeat, Downtempo, Drum and bass, Electronic dance music, House, Industrial, Techno, Trance</b></p>
+		<p><b>Folk:</b> Celtic music, Indie folk, Industrial folk, Neofolk, Progressive folk</p>
+		<p><b>Hip hop:</b> Alternative hip hop, Avantgarde hip hop, East coast, Freestyle rap, Gangsta rap, Hip hop soul, Jazz rap, Political hip hop, West coast </p>
+		<p><b>Jazz:</b> Acid jazz, Avantgarde jazz, Bebop, Free jazz, Jazz fusion, Jazz rap</p>
+		<p><b>Klassik:</b> Medieval music, Renaissance music, Baroque music, Classical music, Romantic music, Contemporary classical music </p>
+		<p><b>Pop:</b> Dance-pop, Electropop, Folk pop, Indie pop, Schlager, Surf pop, Synthpop, Traditional pop music
+		<p><b>R&B and soul: </b>Contemporary R&B, Funk, Disco, R&B, Soul</p>
+		<p><b>Rock:</b> Alternative rock, Art rock, Beat music, Experimental rock, Electronic rock, Hard rock, Metal, Math rock, Punk rock, Surf rock
+	</div>
+  </body>
+  <script>
+
+var suspended = {
+    type: "single-stim",
+    is_html: false,
+    choices: [13],
+    timing_post_trial: 10,
+    prompt: "Liebe Besucherin, lieber Besucher,<p>aufgrund der hohen Teilnahmequote wurde diese Vorstudie vorl&aumlufig ausgesetzt.</p>Vielen Dank f&uumlr Dein Interesse, <br>das <a href='https://omfix.wordpress.com' target='_blank'>OMFix</a>-Team</br></p>"
+};
+
+  var logo = [
+  	"img/Logo.png"
+  ];
+
+  var open_tab = [
+  	"img/Tab.png"
+  ];
+
+  var stimuliUse = [
+  	['Wof&uumlr kann ein <div style="font-size: 130%;"><b>Regenschirm</b></div><p></p> genutzt werden?<p><font size=3><i>Klicken Sie in das Textfeld und notieren Sie so viele Ideen wie m&oumlglich; trenne Sie diese durch Strichpunkte!</font></p>'],
+  	['Wof&uumlr kann eine <div style="font-size: 130%;"><b>Plastikflasche</b></div><p></p> genutzt werden?<p><font size=3><i>Klicken Sie in das Textfeld und notieren Sie so viele Ideen wie m&oumlglich; trennen Sie diese durch Strichpunkte!</font></p>'],
+    ['Wof&uumlr kann ein <div style="font-size: 130%;"><b>Schuh</b></div><p></p> genutzt werden?<p><font size=3><i>Klicken Sie in das Textfeld und notieren Sie so viele Ideen wie m&oumlglich; trennen Sie diese durch Strichpunkte!</font></p>'],
+  ];
+
+  var stimuliInstances = [
+    ['Was kann alles rund sein?<p><font size=3><i>Klicke in das Textfeld und notiere so viele Ideen wie m&oumlglich; trenne sie durch Beistriche!</font></p>'],
+    ['Was kann alles zur schnellen Fortbewegung genutzt werden?<p><font size=3><i>Klicke in das Textfeld und notiere so viele Ideen wie m&oumlglich; trenne sie durch Beistriche!</font></p>'],
+  ];
+
+  var stimuli_rand_order_Use  = stimuliUse.sort(function() {
+    return .5 - Math.random();
+  });
+
+  var stimuli_rand_order_Instances  = stimuliInstances.sort(function() {
+    return .5 - Math.random();
+  });
+
+  console.log(stimuli_rand_order_Use);
+  console.log(stimuli_rand_order_Instances);
+
+
+  var intro = {
+      type: "single-stim",
+      is_html: false,
+      choices: [13],
+      timing_post_trial: 10,
+      prompt: "<p></p><p></p><p></p><p><b>Vielen Dank!</b></p> <p>***</p>Es folgt nun der letzte Fragebogen zu Deinen musikalischen Vorlieben.<p>Dr&uumlcke die Enter-Taste, wenn Du bereit bist.</p>"
+  };
+
+  var outro = {
+      type: "single-stim",
+      is_html: false,
+      choices: [13],
+      timing_post_trial: 10,
+      prompt: "<div style='margin-top:15%'><h1><b>Vielen Dank!</h1><br><h3>Bitte dr&uumlcken Sie <b>Enter<b> um Ihre Daten zu speichern.</h3></div>"
+  };
+
+
+var welcome_message = {
+    type: "single-stim",
+    stimulus: logo,
+    is_html: false,
+    choices: [13],
+    timing_post_trial: 10,
+   prompt: "<p.block-center> <p>***</p> <b>Herzlich willkommen zu einer Studie im Rahmen des FWF-Projektes <a href='https://omfix.wordpress.com' target='_blank'>OMFix</a></b> <p>***</p><p>Das Projekt widmet sich ged&aumlchtnispsychologischen Grundlagen der kreativen Kognition w&aumlhrend der Mensch-Web-Interaktion. </p> F&uumlr die Teilnahme erh&aumlltst Du eine Aufwandsentsch&aumldigung in Form eines Amazon-Gutschiens in H&oumlhe von 30 Euro sowie einen Versuchsschein &uumlber 360 Minuten.</p> <p> <i> Verwende entweder einen Laptop oder Desktop-Rechner, um die Online-Studie absolvieren zu k&oumlnnen. </i> </p> <p> Dr&uumlcke die Enter-Taste, um zu weiteren Informationen zu gelangen.</p>"
+};
+
+var genreIntro = ["<p><br><br><b>Vielen Dank!</b></p> <p>***</p>Deine letzte Aufgabe besteht darin, auf den n\u00e4chsten Seiten die Titel von insgesamt drei Liedern / Musikst&uumlcken zu nennen, die Du in der letzten Zeit h&aumlufig geh&oumlrt hast. <br> Zudem bitten wir dich die Lieder / Musikst&uumlcke anhand von Stichw&oumlrtern zu beschreiben. Siehe Instruktion n&aumlchste Seite.<br><br> *** <br><br> Dr&uumlcke Enter um fortzufahren."];
+
+var genreInstruction = {
+    type: 'single-stim-bottom',
+	//stimulus: [open_tab],
+    choices: [13],
+    prompt: genreIntro,
+    is_html: false
+    };
+
+var task_description = {
+    type: "single-stim",
+    is_html: false,
+    choices: [13],
+    timing_post_trial: 10,
+    prompt: "<ul> <p> <b>Informationen zur VORSTUDIE </b></p> <p>Die Vorstudie f&uumlhren wir durch, um vorab Aspekte Deines kreativen Potentials und Deiner musikalischen Vorlieben zu erheben. Daf&uumlr sollst Du drei verschiedene Aufgabenstellungen bearbeiten: </p><p> 1a) Aufgaben zum divergenten Denken (z.B. Aufz&aumlhlen von Verwendungsm&oumlglichkeiten f&uumlr Alltagsgegenst&aumlnde)</p> <p> 2a) Fragebogen &uumlber kreative Aktivit&aumlten in verschiedenen Bereichen Deines Alltagslebens (z.B. Musik, Kochen etc.)</p> <p>3a) Fragebogen &uumlber Deine musikalischen Vorlieben: Bewertung musikalischer Genres (z.B. Klassik, Pop etc.) </p> <p>und Angabe von Musikst&uumlcken Deiner Wahl </p>  <p> *** </p> <p> <b>Informationen zur HAUPTSTUDIE </b> </p><ul> <p> Nach Durchf&uumlhrung dieser drei Aufgaben und nach Bekanntgabe Deiner E-Mail-Adresse w&uumlrden wir mit Dir Kontakt aufnehmen, um einen Termin f&uumlr die Hauptstudie zu vereinbaren. Diese umfasst abermals drei Aufgabenstellungen: </p ><p> 1b) Schriftliches Produzieren von freien Assoziationen zu vorgegebenen Begriffen (z.B. Meer) </> <p> 2b) Freies Reproduzieren von zuvor gelesenen Wortlisten </p> <p> 3b) Web-basierte Exploration von Musik (z.B. YouTube-Videos)</p> <p> </ul>*** </p> <p> <i> Wir bitten Dich, nur dann an der nachfolgenden Vorstudie mitzumachen, wenn Du auch bereit bist, die Hauptstudie zu absolvieren. </i> </p> </p> <p> Alle Deine Daten werden anonymisiert und vertraulich behandelt. Dr&uumlcke die Enter-Taste, um zur Vorstudie zu gelangen. </p> "
+};
+
+var info_technical ={
+    type: "single-stim",
+    is_html: false,
+    choices: [13],
+    timing_post_trial: 10,
+    prompt: "<p><b>Herzlichen Dank f&uumlr Deine Bereitschaft, an der Studie teilzunehmen!</b></p> Zun&aumlchst folgen drei wichtige Informationen &uumlber die Durchf&uumlhrung der Online-Vorstudie.<p> <p>***</p><p> 1. Deine Antworten werden nicht auf unserem Server, sondern vor&uumlbergehend auf Deinem Computer gespeichert. Am Ende der Untersuchung wirst Du gebeten, auf einen Download-Button zu klicken, um <p>- ein File mit Deinen Daten herunterzuladen, und</p><p>- dieses File an <b>fwf.omfix@gmx.com</b> zu senden.</p><p>- Bitte notiere diese email-Adresse jetzt!</p><p>2. Vergewissere Dich, dass Du zur Durchf&uumlhrung dieser Online-Studie <b>Firefox oder Chrome</b> als Browser verwendest.<p> 3. <b>Vorsicht</b>: F&uumlr andere Web-Aktivit&aumlten &oumlffne einen weiteren Tab Deines Browsers. Eine Suche in diesem Fenster w&uumlrde zum Abbruch der Untersuchung und Verlust Deiner Daten f&uumlhren. Zudem bitten wir Dich, w&aumlhrend der Untersuchung nicht auf den Zur&uumlck-Button zu klicken. Auch dieser Vorgang w&uumlrde den Verlust Deiner Daten bedingen.</p><p><p>***</p>Wenn Du diese drei Informationen genau gelesen und verstanden hast, dann dr&uumlcke die Enter-Taste, um mit der Aufgabe zu beginnen.</p>"
+};
+
+
+var instruction_block = {
+    type: "single-stim",
+    is_html: false,
+    choices: [13],
+    timing_post_trial: 10,
+    prompt: "<center><p style='width:50%;'>Bei dieser Aufgabe wird Ihnen ein Alltagsgegenstand genannt, für den Sie sich kreative Verwendungsmöglichkeiten einfallen lassen sollen. z.B. einen Hut kann man aufsetzen; man könnte aber auch viele andere Dinge damit machen. <br><br>" +
+     "<div style='display:block;margin:auto;text-align: left; margin-left:23em;'><li>Das Ziel ist es kreative Einfälle zu finden, die andere Menschen als originell, clever, ungewöhnlich, interessant, oder humorvoll ansehen würden.</li><li>Tippen Sie jede Idee einzeln in das Ideenfeld ein und <b>trennen Sie die Ideen mit Strichpunkt (;)</b> voneinander.</li><li>Nennen Sie alle Ideen, die Ihnen einfallen. Es ist hierbei aber wichtiger kreative Ideen zu nennen als viele Ideen.</li><li>Sie haben für jeden Gegenstand 2.5 Minuten Zeit. Es gibt insgesamt 3 Durchgänge. Wenn die Bearbeitungszeit um ist, geht es automatisch weiter.</li><li>Wenn Sie noch Fragen haben wenden Sie sich bitte jetzt an den/die UntersuchungsleiterIn.</li></div><br><br> Die Aufgabe startet durch Drücken der <h3><b>Enter-Taste</b></h3> </p></center>."
+};
+//Schreibe Deine Einf&aumllle m&oumlglichst kurz und pr&aumlgnant in die Textbox, die unter dem Gegenstand angezeigt wird.
+
+var timer = ['<p><h1>Bitte laut reproduzieren</h1></p><br><p>Zeit: <h2>30s</h2></p>', '<p><h1>Bitte laut reproduzieren</h1></p><br><p>Zeit: <h2>20s</h2></p>','<p><h1>Bitte laut reproduzieren</h1></p><br><p>Zeit: <h2>10s</h2></p>','<p><h1>Bitte laut reproduzieren</h1></p><br><p>Zeit: <h2>5s</h2></p>', '<p><h1>Bitte laut reproduzieren</h1></p><br><p>Zeit: <h2>1s</h2></p>'];
+
+
+//console.log(s);
+
+
+var test_block_1 = {
+	type: "survey-text_time",
+	//questions: [['stim1'],['stim2']]
+	questions: stimuli_rand_order_Use[0],
+	data: stimuli_rand_order_Use,
+  rows: [20],
+  columns: [65],
+  timing_stim: 150000,
+  preamble: ""
+};
+
+var test_block_2 = {
+	type: "survey-text_time",
+	//questions: [['stim1'],['stim2']]
+	questions: stimuli_rand_order_Use[1],
+	data: stimuli_rand_order_Use,
+  rows: [20],
+  columns: [65],
+  timing_stim: 150000
+};
+
+var test_block_3 = {
+	type: "survey-text_time",
+	//questions: [['stim1'],['stim2']]
+	questions: stimuli_rand_order_Use[2],
+	data: stimuli_rand_order_Use,
+  rows: [20],
+  columns: [65],
+  timing_stim: 150000
+};
+
+var instruction_IT = {
+    type: "single-stim",
+    is_html: false,
+    choices: [13],
+    timing_post_trial: 10,
+    prompt: "<p> <b>Vielen Dank!</b> </p> <p> *** </p> In der n&aumlchsten Aufgabe sollst Du m&oumlglichst viele Gegenst&aumlnde/Dinge nennen, auf die eine bestimmte Eigenschaft zutrifft. <p>- Nenne wieder m&oumlglichst viele verschiedene Einf&aumllle.</p><p>- Gewertet werden wieder die Anzahl und Originalit&aumlt Deiner Antworten.</p> *** </p> Zum <b>Beispiel</b> k&oumlnnte die Frage lauten: Was ist alles <i>glatt</i>? M&oumlgliche Antworten k&oumlnnten sein: Spiegel, Diamant, geb&uumlgelter Stoff, abgefahrene Reifen ...<p> <p> *** </p> <p> F&uumlr jede der zwei hintereinander dargebotenen Eigenschaften hast Du <b>2 Minuten</b> Zeit. Trenne Deine Antworten durch Beistriche. </p> Dr&uumlcke die Enter-Taste, um mit der Aufgabe zu beginnen."
+};
+//
+// var test_block_3 = {
+// 	type: "survey-text_time",
+// 	//questions: [['stim1'],['stim2']]
+// 	questions: stimuli_rand_order_Instances[0],
+// 	data: stimuli_rand_order_Instances,
+//   rows: [20],
+//   columns: [65],
+//   timing_stim: 120000
+// };
+//
+// var test_block_4 = {
+// 	type: "survey-text_time",
+// 	//questions: [['stim1'],['stim2']]
+// 	questions: stimuli_rand_order_Instances[1],
+// 	data: stimuli_rand_order_Instances,
+//   rows: [20],
+//   columns: [65],
+//   timing_stim: 120000
+// };
+
+//</p><p>Stelle Dir ein Kontinuum vor, das von 1 (wenig weiblich) bis 5 (sehr weiblich) reicht.</p> Bitte schreibe jene Zahl ins Textfeld, welche <b>Deine Position auf dem Kontinuum der Weiblichkeit </b>am ehesten beschreibt:','<p> *** </p><p>Stelle Dir ein Kontinuum vor, das von 1 (wenig m&aumlnnlich) bis 5 (sehr m&aumlnnlich) reicht.</p> Bitte schreibe jene Zahl ins Textfeld, welche <b>Deine Position auf dem Kontinuum der M&aumlnnlichkeit </b>am ehesten beschreibt:
+  var peronsl_code = ['<p> *** </p><p><b>Bitte geben Sie Ihren Personen-Code ein</b></p>','<p> *** </p><b>Wie alt sind Sie?</b>','<p> *** </p> <b>Wie lautet Ihr Geschlecht?</b>'];
+
+
+var demog_block ={
+  type: "survey-text",
+  questions: peronsl_code,
+
+};
+
+var caq_questions_Lit = [ "ein kurzes Werk (Gedicht/Kurzgeschichte) geschrieben", "ein langes Werk (Buch, Theaterst&uumlck) geschrieben", "einen Beitrag f&uumlr die Zeitung geschrieben", "eine originelle Rede entworfen", "einen Witz erfunden", "einen Blogeintrag geschrieben"];
+var choice_caq = ["Nie", "1-2 Mal", "3-5 Mal", "6-10 Mal", "Mehr als 10 Mal"];
+var multi_choice_block_caq_Lit = {
+	type: 'survey-likert',
+  //horizontal: true,
+	questions: caq_questions_Lit,
+	labels: [choice_caq,choice_caq,choice_caq,choice_caq,choice_caq, choice_caq],
+	preamble: ['<p.small align="center" padding-top="20px"><h3>Kreuze f&uumlr alle kreativen Aktivit&aumlten aus dem Bereich der Literatur an,</p> <p> wie h&aumlufig Du diese in den letzten 10 Jahren ausge&uumlbt hast!</h3></p>']
+
+
+};
+
+var choice_question = ["<b>Kreuze bitte alle Vertiefungen an, die Du bisher im Bereich Literatur erzielt hast."];
+var choice_caq2 = ['<p><b><h2>Literatur</h2><br<br>W\u00e4hle bitte alle Vertiefungen aus, die Du bisher im Bereich Literatur erzielt hast, indem du die Nummern <br> der jeweiligen Vertiefungen in das Textfeld eintr\u00e4gst. Bitte trenne die einzelnen Nummern durch Beistriche.</b><br><br></p> <p style="text-align:left; margin-left:32%;margin-bottom:30px;">0. Ich habe mich mit diesem Bereich noch nie besch&aumlftigt.<br> 1. Ich habe diesen Bereich schon einmal ausprobiert.<br> 2. Ich habe in diesem Bereich bereits ein Eigenwerk erstellt.<br> 3. Ich habe Freunden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br>4. Ich habe Fremden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br> 5. Ich habe bereits Stunden in diesem Bereich genommen, um mich weiterzubilden.<br> 6. Ich habe ein Eigenwerk aus diesem Bereich ver&oumlffentlicht.<br> 7. Ich habe mit einem Eigenwerk aus diesem Bereich an einem Wettbewerb teilgenommen.<br> 8. Ich habe f&uumlr ein Eigenwerk aus diesem Bereich einen Preis gewonnen.<br> 9. &Uumlber mein Eigenwerk wurde bereits in den Medien (Zeitung, Radio, o.&auml.) berichtet<br> 10. Ich habe ein Eigenwerk aus diesem Bereich verkauft.</p>'];
+var multi_choice_block_caq_Lit2 = {
+	type: 'survey-text',
+	questions:choice_caq2
+	//options: [auswahl,auswahl,auswahl,auswahl,auswahl,auswahl,auswahl,auswahl,auswahl,auswahl,auswahl],
+	//prompt: choice_question
+//  is_html:true
+};
+
+/*
+var caq_questions_Lit2 = ["<b>Kreuze bitte alle Vertiefungen an, die Du bisher im Bereich Literatur erzielt hast."];
+var choice_caq2 = ["0. Ich habe mich mit diesem Bereich noch nie besch&aumlftigt.", "1. Ich habe diesen Bereich schon einmal ausprobiert.", "2. Ich habe in diesem Bereich bereits ein Eigenwerk erstellt.", "3. Ich habe Freunden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.", "4. Ich habe Fremden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.", "5. Ich habe bereits Stunden in diesem Bereich genommen, um mich weiterzubilden.", "6. Ich habe ein Eigenwerk aus diesem Bereich ver&oumlffentlicht.", "7. Ich habe mit einem Eigenwerk aus diesem Bereich an einem Wettbewerb teilgenommen.", "8. Ich habe f&uumlr ein Eigenwerk aus diesem Bereich einen Preis gewonnen.", "9. &Uumlber mein Eigenwerk wurde bereits in den Medien (Zeitung, Radio, o.&auml.) berichtet", "10. Ich habe ein Eigenwerk aus diesem Bereich verkauft."];
+var multi_choice_block_caq_Lit2 = {
+	type: 'survey-multi-choice',
+	questions: caq_questions_Lit2,
+	options: [choice_caq2],
+	preamble: ['<p.very-large align="center" padding-top="20px"><h2>Literatur</h2></p>'],
+};
+*/
+/*
+var caq_questions_Mus = [ "ein Musikst&uumlck geschrieben", "ein Musikst&uumlck kreativ abge&aumlndert/neu interpretiert", "eine Melodie ausgedacht", "einen Rhythmus ausgedacht", "T&oumlne k&uumlnstlich erzeugt (z.B. mit Synthesizer)", "eine Musikzusammenstellung erstellt (z.B. DJ, CD-Sampler)"];
+var choice_caq = ["Nie", "1-2 Mal", "3-5 Mal", "6-10 Mal", "Mehr als 10 Mal"];
+var multi_choice_block_caq_Mus = {
+	type: 'survey-multi-choice',
+	questions: caq_questions_Mus,
+	options: [choice_caq,choice_caq,choice_caq,choice_caq,choice_caq, choice_caq],
+	preamble: ['<p.very-large align="center" padding-top="20px"><h3>Kreuze f&uumlr alle kreativen Aktivit&aumlten aus dem Bereich der Musik an, </p> <p>wie h&aumlufig Du diese in den letzten 10 Jahren ausge&uumlbt hast!</h3></p>']
+
+};*/
+
+var caq_questions_Mus = [ "ein Musikst&uumlck geschrieben", "ein Musikst&uumlck kreativ abge&aumlndert/neu interpretiert", "eine Melodie ausgedacht", "einen Rhythmus ausgedacht", "T&oumlne k&uumlnstlich erzeugt (z.B. mit Synthesizer)", "eine Musikzusammenstellung erstellt (z.B. DJ, CD-Sampler)"];
+var multi_choice_block_caq_Mus = {
+	type: 'survey-likert',
+  //horizontal: true,
+	questions: caq_questions_Mus,
+	labels: [choice_caq,choice_caq,choice_caq,choice_caq,choice_caq, choice_caq],
+	preamble: ['<p.small align="center" padding-top="20px"><h3>Kreuze f&uumlr alle kreativen Aktivit&aumlten aus dem Bereich der Musik an,</p> <p> wie h&aumlufig Du diese in den letzten 10 Jahren ausge&uumlbt hast!</h3></p>']
+
+
+};
+
+
+
+var caq_questions_Mus2 = ["<b>Kreuze bitte alle Vertiefungen an, die Du bisher im Bereich Musik erzielt hast."];
+var choice_Mus2 = ['<p><b><h2>Musik</h2><br<br>W\u00e4hle bitte alle Vertiefungen aus, die Du bisher im Bereich Musik erzielt hast, indem du die Nummern <br> der jeweiligen Vertiefungen in das Textfeld eintr\u00e4gst. Bitte trenne die einzelnen Nummern durch Beistriche.</b><br><br></p> <p style="text-align:left; margin-left:32%;margin-bottom:30px;">0. Ich habe mich mit diesem Bereich noch nie besch&aumlftigt.<br> 1. Ich habe diesen Bereich schon einmal ausprobiert.<br> 2. Ich habe in diesem Bereich bereits ein Eigenwerk erstellt.<br> 3. Ich habe Freunden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br>4. Ich habe Fremden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br> 5. Ich habe bereits Stunden in diesem Bereich genommen, um mich weiterzubilden.<br> 6. Ich habe ein Eigenwerk aus diesem Bereich ver&oumlffentlicht.<br> 7. Ich habe mit einem Eigenwerk aus diesem Bereich an einem Wettbewerb teilgenommen.<br> 8. Ich habe f&uumlr ein Eigenwerk aus diesem Bereich einen Preis gewonnen.<br> 9. &Uumlber mein Eigenwerk wurde bereits in den Medien (Zeitung, Radio, o.&auml.) berichtet<br> 10. Ich habe ein Eigenwerk aus diesem Bereich verkauft.</p>'];
+
+var multi_choice_block_caq_Mus2 = {
+  type: 'survey-text',
+  questions:choice_Mus2
+
+};
+
+var caq_questions_Han = [ "einen Alltagsgegenstand gebastelt", "einen Alltagsgegenstand versch&oumlnert", "ein Geschenk gebastelt", "originelle Dekoration gebastelt", "einen Garten geplant", "Kleidung entworfen oder gen&aumlht"];
+var choice_caq = ["Nie", "1-2 Mal", "3-5 Mal", "6-10 Mal", "Mehr als 10 Mal"];
+var multi_choice_block_caq_Han = {
+	type: 'survey-likert',
+	questions: caq_questions_Han,
+	labels: [choice_caq,choice_caq,choice_caq,choice_caq,choice_caq, choice_caq],
+	preamble: ['<p.very-large align="center" padding-top="20px"><h3>Kreuze f&uumlr alle kreativen Aktivit&aumlten aus dem Bereich Handarbeiten an, </p> <p>wie h&aumlufig Du diese in den letzten 10 Jahren ausge&uumlbt hast!</h3></p>']
+
+};
+
+var caq_questions_Han2 = ["<b>Kreuze bitte alle Vertiefungen an, die Du bisher im Handarbeiten erzielt hast."];
+var choice_Han2 = ['<p><b><h2>Handarbeit</h2><br<br>W\u00e4hle bitte alle Vertiefungen aus, die Du bisher im Bereich Handarbeit erzielt hast, indem du die Nummern <br> der jeweiligen Vertiefungen in das Textfeld eintr\u00e4gst. Bitte trenne die einzelnen Nummern durch Beistriche.</b><br><br></p> <p style="text-align:left; margin-left:32%;margin-bottom:30px;">0. Ich habe mich mit diesem Bereich noch nie besch&aumlftigt.<br> 1. Ich habe diesen Bereich schon einmal ausprobiert.<br> 2. Ich habe in diesem Bereich bereits ein Eigenwerk erstellt.<br> 3. Ich habe Freunden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br>4. Ich habe Fremden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br> 5. Ich habe bereits Stunden in diesem Bereich genommen, um mich weiterzubilden.<br> 6. Ich habe ein Eigenwerk aus diesem Bereich ver&oumlffentlicht.<br> 7. Ich habe mit einem Eigenwerk aus diesem Bereich an einem Wettbewerb teilgenommen.<br> 8. Ich habe f&uumlr ein Eigenwerk aus diesem Bereich einen Preis gewonnen.<br> 9. &Uumlber mein Eigenwerk wurde bereits in den Medien (Zeitung, Radio, o.&auml.) berichtet<br> 10. Ich habe ein Eigenwerk aus diesem Bereich verkauft.</p>'];
+
+var multi_choice_block_caq_Han2 = {
+	type: 'survey-text',
+	questions:choice_Han2
+
+};
+
+var caq_questions_Koch = [ "ein originelles Gericht gekocht", "ein Gericht kreativ angerichtet", "Kekse/Torte kreativ verziert", "eine Skulptur aus Essen gemacht", "ein eigenes Essen erfunden", "ein neues Getr&aumlnk/Cocktail kreiert"];
+var choice_caq = ["Nie", "1-2 Mal", "3-5 Mal", "6-10 Mal", "Mehr als 10 Mal"];
+var multi_choice_block_caq_Koch = {
+	type: 'survey-likert',
+	questions: caq_questions_Koch,
+	labels: [choice_caq,choice_caq,choice_caq,choice_caq,choice_caq, choice_caq],
+	preamble: ['<p.very-large align="center" padding-top="20px"><h3>Kreuze f&uumlr alle kreativen Aktivit&aumlten aus dem Bereich Kochen an, </p> <p>wie h&aumlufig Du diese in den letzten 10 Jahren ausge&uumlbt hast!</h3></p>']
+
+};
+
+var caq_questions_Koch2 = ["<b>Kreuze bitte alle Vertiefungen an, die Du bisher im Bereich Kochen erzielt hast."];
+var choice_Koch2 = ['<p><b><h2>Kochen</h2><br<br>W\u00e4hle bitte alle Vertiefungen aus, die Du bisher im Bereich Kochen erzielt hast, indem du die Nummern <br> der jeweiligen Vertiefungen in das Textfeld eintr\u00e4gst. Bitte trenne die einzelnen Nummern durch Beistriche.</b><br><br></p> <p style="text-align:left; margin-left:32%;margin-bottom:30px;">0. Ich habe mich mit diesem Bereich noch nie besch&aumlftigt.<br> 1. Ich habe diesen Bereich schon einmal ausprobiert.<br> 2. Ich habe in diesem Bereich bereits ein Eigenwerk erstellt.<br> 3. Ich habe Freunden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br>4. Ich habe Fremden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br> 5. Ich habe bereits Stunden in diesem Bereich genommen, um mich weiterzubilden.<br> 6. Ich habe ein Eigenwerk aus diesem Bereich ver&oumlffentlicht.<br> 7. Ich habe mit einem Eigenwerk aus diesem Bereich an einem Wettbewerb teilgenommen.<br> 8. Ich habe f&uumlr ein Eigenwerk aus diesem Bereich einen Preis gewonnen.<br> 9. &Uumlber mein Eigenwerk wurde bereits in den Medien (Zeitung, Radio, o.&auml.) berichtet<br> 10. Ich habe ein Eigenwerk aus diesem Bereich verkauft.</p>'];
+var multi_choice_block_caq_Koch2 = {
+	type: 'survey-text',
+	questions: [choice_Koch2],
+
+};
+
+var caq_questions_Spo = [ "neue Tricks/Bewegungsabfolgen erfunden im Geschicklichkeitssport (z.B. Jonglieren)", "Neue Tricks/Bewegungsabfolgen erfunden im Wintersport (z.B. Snowboarden)", "Neue Tricks/Bewegungsabfolgen erfunden im Sommersport (z.B. Fahrrad)", "Neue Tricks/Bewegungsabfolgen erfunden im Kampfsport (z.B. Judo)", "Neue Tricks/Bewegungsabfolgen erfunden in anderen Sportbereichen", "ein abwechslungsreiches Sporttraining geplant"];
+var choice_caq = ["Nie", "1-2 Mal", "3-5 Mal", "6-10 Mal", "Mehr als 10 Mal"];
+var multi_choice_block_caq_Spo = {
+	type: 'survey-likert',
+	questions: caq_questions_Spo,
+	labels: [choice_caq,choice_caq,choice_caq,choice_caq,choice_caq, choice_caq],
+	preamble: ['<p.very-large align="center" padding-top="20px"><h3>Kreuze f&uumlr alle kreativen Aktivit&aumlten aus dem Bereich Sport an, </p> <p>wie h&aumlufig Du diese in den letzten 10 Jahren ausge&uumlbt hast!</h3></p>']
+
+};
+
+var caq_questions_Spo2 = ["<b>Kreuze bitte alle Vertiefungen an, die Du bisher im Bereich Sport erzielt hast."];
+var choice_Spo2 = ['<p><b><h2>Sport</h2><br<br>W\u00e4hle bitte alle Vertiefungen aus, die Du bisher im Bereich Sport erzielt hast, indem du die Nummern <br> der jeweiligen Vertiefungen in das Textfeld eintr\u00e4gst. Bitte trenne die einzelnen Nummern durch Beistriche.</b><br><br></p> <p style="text-align:left; margin-left:32%;margin-bottom:30px;">0. Ich habe mich mit diesem Bereich noch nie besch&aumlftigt.<br> 1. Ich habe diesen Bereich schon einmal ausprobiert.<br> 2. Ich habe in diesem Bereich bereits ein Eigenwerk erstellt.<br> 3. Ich habe Freunden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br>4. Ich habe Fremden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br> 5. Ich habe bereits Stunden in diesem Bereich genommen, um mich weiterzubilden.<br> 6. Ich habe ein Eigenwerk aus diesem Bereich ver&oumlffentlicht.<br> 7. Ich habe mit einem Eigenwerk aus diesem Bereich an einem Wettbewerb teilgenommen.<br> 8. Ich habe f&uumlr ein Eigenwerk aus diesem Bereich einen Preis gewonnen.<br> 9. &Uumlber mein Eigenwerk wurde bereits in den Medien (Zeitung, Radio, o.&auml.) berichtet<br> 10. Ich habe ein Eigenwerk aus diesem Bereich verkauft.</p>'];
+var multi_choice_block_caq_Spo2 = {
+	type: 'survey-text',
+	questions: choice_Spo2,
+
+};
+
+
+var caq_questions_BK = [ "eine Fotozusammenstellung oder Fotomontage gemacht", "ein Logo/Banner entworfen", "ein Geb&aumlude geplant", "ein Bild/eine Graphik ausgedacht und gemalt", "eine Skulptur entworfen", "eine Skizze f&uumlr Neugestaltung eines Innenraumes angefertigt"];
+var choice_caq = ["Nie", "1-2 Mal", "3-5 Mal", "6-10 Mal", "Mehr als 10 Mal"];
+var multi_choice_block_caq_BK = {
+	type: 'survey-likert',
+	questions: caq_questions_BK,
+	labels: [choice_caq,choice_caq,choice_caq,choice_caq,choice_caq, choice_caq],
+	preamble: ['<p.very-large align="center" padding-top="20px"><h3>Kreuze f&uumlr alle kreativen Aktivit&aumlten aus dem Bereich der bildenden Kunst (Graphik, Malerei, Baukunst, Bildhauerei) an,</p><p> wie h&aumlufig Du diese in den letzten 10 Jahren ausge&uumlbt hast!</h3></p>']
+
+};
+
+var caq_questions_BK2 = ["<b>Kreuze bitte alle Vertiefungen an, die Du bisher im Bereich bildende Kunst erzielt hast."];
+var choice_BK2 = ['<p><b><h2>Bildende Kunst</h2><br<br>W\u00e4hle bitte alle Vertiefungen aus, die Du bisher im Bereich Bildende Kunst erzielt hast, indem du die Nummern <br> der jeweiligen Vertiefungen in das Textfeld eintr\u00e4gst. Bitte trenne die einzelnen Nummern durch Beistriche.</b><br><br></p> <p style="text-align:left; margin-left:32%;margin-bottom:30px;">0. Ich habe mich mit diesem Bereich noch nie besch&aumlftigt.<br> 1. Ich habe diesen Bereich schon einmal ausprobiert.<br> 2. Ich habe in diesem Bereich bereits ein Eigenwerk erstellt.<br> 3. Ich habe Freunden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br>4. Ich habe Fremden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br> 5. Ich habe bereits Stunden in diesem Bereich genommen, um mich weiterzubilden.<br> 6. Ich habe ein Eigenwerk aus diesem Bereich ver&oumlffentlicht.<br> 7. Ich habe mit einem Eigenwerk aus diesem Bereich an einem Wettbewerb teilgenommen.<br> 8. Ich habe f&uumlr ein Eigenwerk aus diesem Bereich einen Preis gewonnen.<br> 9. &Uumlber mein Eigenwerk wurde bereits in den Medien (Zeitung, Radio, o.&auml.) berichtet<br> 10. Ich habe ein Eigenwerk aus diesem Bereich verkauft.</p>'];
+var multi_choice_block_caq_BK2 = {
+	type: 'survey-text',
+	questions: choice_BK2
+};
+
+var caq_questions_DK = [ "eine Rolle in einem Theater gespielt", "ein Puppentheater/Kasperltheater aufgef&uumlhrt", "einen neuen Tanz ausgedacht", "einen Tanz neu interpretiert", "einen Film/Video gemacht", "eine Animation (z.B. Stop Motion) gemacht"];
+var choice_caq = ["Nie", "1-2 Mal", "3-5 Mal", "6-10 Mal", "Mehr als 10 Mal"];
+var multi_choice_block_caq_DK = {
+	type: 'survey-likert',
+	questions: caq_questions_DK,
+	labels: [choice_caq,choice_caq,choice_caq,choice_caq,choice_caq, choice_caq],
+	preamble: ['<p.very-large align="center" padding-top="20px"><h3>Kreuze f&uumlr alle kreativen Aktivit&aumlten aus dem Bereich der darstellenden Kunst (Theater, Tanz, Film) an,</p><p> wie h&aumlufig Du diese in den letzten 10 Jahren ausge&uumlbt hast!</h3></p>']
+
+};
+
+var caq_questions_DK2 = ["<b>Kreuze bitte alle Vertiefungen an, die Du bisher im Bereich darstellende Kunst erzielt hast."];
+var choice_DK2 = ['<p><b><h2>Darstellende Kunst</h2><br<br>W\u00e4hle bitte alle Vertiefungen aus, die Du bisher im Bereich Darstellende Kunst erzielt hast, indem du die Nummern <br> der jeweiligen Vertiefungen in das Textfeld eintr\u00e4gst. Bitte trenne die einzelnen Nummern durch Beistriche.</b><br><br></p> <p style="text-align:left; margin-left:32%;margin-bottom:30px;">0. Ich habe mich mit diesem Bereich noch nie besch&aumlftigt.<br> 1. Ich habe diesen Bereich schon einmal ausprobiert.<br> 2. Ich habe in diesem Bereich bereits ein Eigenwerk erstellt.<br> 3. Ich habe Freunden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br>4. Ich habe Fremden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br> 5. Ich habe bereits Stunden in diesem Bereich genommen, um mich weiterzubilden.<br> 6. Ich habe ein Eigenwerk aus diesem Bereich ver&oumlffentlicht.<br> 7. Ich habe mit einem Eigenwerk aus diesem Bereich an einem Wettbewerb teilgenommen.<br> 8. Ich habe f&uumlr ein Eigenwerk aus diesem Bereich einen Preis gewonnen.<br> 9. &Uumlber mein Eigenwerk wurde bereits in den Medien (Zeitung, Radio, o.&auml.) berichtet<br> 10. Ich habe ein Eigenwerk aus diesem Bereich verkauft.</p>'];
+var multi_choice_block_caq_DK2 = {
+	type: 'survey-text',
+	questions: choice_DK2
+
+};
+
+var caq_questions_Tec = [ "eine wissenschaftliche Arbeit geschrieben", "eine Theorie entwickelt um Ph&aumlnomene zu erkl&aumlren", "ein praktisches Problem mit einem eigenen technischen Trick gel&oumlst", "etwas konstruiert, das wissenschaftliches Wissen erfordert", "mit einem Computerprogramm geschrieben", "eine eigene Website erstellt"];
+var choice_caq = ["Nie", "1-2 Mal", "3-5 Mal", "6-10 Mal", "Mehr als 10 Mal"];
+var multi_choice_block_caq_Tec = {
+	type: 'survey-likert',
+	questions: caq_questions_Tec,
+	labels: [choice_caq,choice_caq,choice_caq,choice_caq,choice_caq, choice_caq],
+	preamble: ['<p.very-large align="center" padding-top="20px"><h3>Kreuze f&uumlr alle kreativen Aktivit&aumlten aus dem Bereich der Technik & Naturwissenschaften an,</p> <p> wie h&aumlufig Du diese in den letzten 10 Jahren ausge&uumlbt hast!</h3></p>']
+
+};
+
+var caq_questions_Tec2 = ["<b>Kreuze bitte alle Vertiefungen an, die Du bisher im Bereich Technik & Naturwissenschaften erzielt hast."];
+var choice_Tec2 = ['<p><b><h2>Technik & Naturwissenschaften</h2><br<br>W\u00e4hle bitte alle Vertiefungen aus, die Du bisher im Bereich Technik & Naturwissenschaften erzielt hast, indem du die Nummern <br> der jeweiligen Vertiefungen in das Textfeld eintr\u00e4gst. Bitte trenne die einzelnen Nummern durch Beistriche.</b><br><br></p> <p style="text-align:left; margin-left:32%;margin-bottom:30px;">0. Ich habe mich mit diesem Bereich noch nie besch&aumlftigt.<br> 1. Ich habe diesen Bereich schon einmal ausprobiert.<br> 2. Ich habe in diesem Bereich bereits ein Eigenwerk erstellt.<br> 3. Ich habe Freunden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br>4. Ich habe Fremden ein Eigenwerk aus diesem Bereich vorgef&uumlhrt.<br> 5. Ich habe bereits Stunden in diesem Bereich genommen, um mich weiterzubilden.<br> 6. Ich habe ein Eigenwerk aus diesem Bereich ver&oumlffentlicht.<br> 7. Ich habe mit einem Eigenwerk aus diesem Bereich an einem Wettbewerb teilgenommen.<br> 8. Ich habe f&uumlr ein Eigenwerk aus diesem Bereich einen Preis gewonnen.<br> 9. &Uumlber mein Eigenwerk wurde bereits in den Medien (Zeitung, Radio, o.&auml.) berichtet<br> 10. Ich habe ein Eigenwerk aus diesem Bereich verkauft.</p>'];
+var multi_choice_block_caq_Tec2 = {
+	type: 'survey-text',
+	questions: choice_Tec2
+
+};
+
+
+  var page_1_questions = [ "<b>Alternative", "<b>Dance", "<b>Electronic", "<b>Folk","<b>HipHop</b>", "<b>Jazz", "<b>Classical", "<b>Metal"];
+  var page_2_questions = ["<b>Pop", "<b>R&B", "<b>Rock", "<b>World", "<b>Greatest Hits", "<b>Filmmusik","<b>Avant-garde / Experimentelle Musik","<b>Blues"];
+  var page_3_questions = ["<b>Country","<b>Indie pop","<b>Opera","<b>Reggae","<b>Singer/Songwriter"];
+//  var page_3_questions = [ "HipHop", "Jazz", "Classical", "Metal"];
+//  var page_3_questions = [ "HipHop", "Jazz", "Classical", "Metal"];
+
+
+  // definiting two different response scales that can be used.
+  var choice = ["gar nicht", "kaum", "mittelm\u00e4\u00dfig", "ziemlich", "au\u00dferordentlich"];
+  //var page_2_options = ["Strongly Disagree", "Disagree", "Somewhat Disagree", "Neural", "Somewhat Agree", "Agree", "Strongly Agree"];
+  //var leer = []
+  var multi_choice_block_1 = {
+      type: 'survey-likert',
+      questions: page_1_questions,
+      labels: [choice,choice,choice,choice,choice,choice,choice,choice],
+      preamble: ['<p.very-large align="center" padding-top="20px"><h2>Wie gut gefallen Dir Songs aus diesem Genre?</h2></p>']
+  };
+
+  var multi_choice_block_2 = {
+      type: 'survey-likert',
+      questions: page_2_questions,
+      labels: [choice,choice,choice,choice,choice,choice,choice,choice],
+      preamble: ['<p.very-large align="center" padding-top="20px"><h2>Wie gut gefallen Dir Songs aus diesem Genre?</h2></p>']
+  };
+
+  var multi_choice_block_3 = {
+      type: 'survey-likert',
+      questions: page_3_questions,
+      labels: [choice,choice,choice,choice,choice, choice],
+      preamble: ['<p.very-large align="center" padding-top="20px"><h2>Wie gut gefallen Dir Songs aus diesem Genre?</h2></p>']
+  };
+/*
+  var multi_choice_block_3 = {
+      type: 'survey-multi-choice',
+      questions: page_1_questions,
+      options: [page_1_options, page_1_options,page_1_options, page_1_options],
+      preamble: ['<p.very-large align="center" padding-top="2000px"><h2>Bitte markiere welche der Antworm\u00f6glichkeiten am meisten zutrifft</h2></p>']
+  };
+*/
+
+
+  var adjectives = ['<p><h4 style="text-align:center; margin:3em;"><b><h2>Adjektive zur Auswahl: </b></h2><br>Happy Amazed Dazzled Allured Happy Amazed Dazzled Allured Happy Amazed Dazzled Allured Happy Amazed Dazzled Allured Happy Amazed Dazzled Allured Happy Amazed Dazzled Allured Happy Amazed Dazzled Allured Happy Amazed Dazzled Allured Happy Amazed Dazzled Allured Happy Amazed Dazzled Allured Happy Amazed Dazzled Allured</h4></p>']
+
+  var genreInput_Genre1Link1 = {
+      type: 'survey-text-fb',
+      questions: ['<b><h3>Nenne nun den Titel des ersten Liedes, welches Du zur Zeit h&aumlufig h&oumlrst!</h3> </b><p><p>Daf&uumlr kannst du auch gerne im Web nachschauen (z.B. YouTube, Soundcloud etc.): Klicke daf&uumlr entweder auf den YouTube-, Soundcloud- oder Google-Button, um ein weiteres Fenster zu &oumlffnen und dort die Suche durchzuf&uumlhren. </p> <p><i>Vorsicht: Suche nicht in diesem Fenster &#x2212 dies w&uumlrde zum Abbruch der Untersuchung und Verlust Deiner Daten f&uumlhren.</i></p><p>***</p><b><b>Lied 1 &#x2212 Titel:','<b>Lied 1 &#x2212 Name der K&uumlnstlerin/des K&uumlnstlers/der Band:','<p><b><p>***</p> <h3>Beschreibe das eben gew&aumlhlte Lied im n&aumlchsten Textfeld anhand von frei gew&aumlhlten Stichw&oumlrtern (mindestens drei)!</h3></b> <p>Gerne kannst Du auch aus diesen zwei Listen von <a class="fancybox" href="#inline1" title="Emotionsw&oumlrter"> <font size="5">Emotionsw&oumlrtern</font></a> und <a class="fancybox" href="#inline2" title="Genrebezeichnungen"><font size="5">Genrebezeichnungen</font></a> ausw&aumlhlen (klicke auf eine Liste, um die W&oumlrter zu sehen und gegebenenfalls zu kopieren und einzuf&uumlgen): <p></p><p> '],// 'Adjektive (mind. 2)','Genre 1, Link 2','Adjektive (mind. 2)', 'Genre 2, Link 1','Adjektive (mind. 2)', "Genre 2, Link 2",'Adjektive (mind. 2)'],
+	  //preamble: ['<img src="img/bild_test.png" style="width:50%;height:auto;">'],
+    };
+
+
+
+    var genreInput_Genre1Link2 = {
+        type: 'survey-text-fb',
+      questions: ['<b><h3>Nenne nun den Titel eines weiteren Liedes, welches Du zur Zeit h&aumlufig h&oumlrst!</h3> </b><p> <p><i>Vorsicht: Klicke abermals auf einen der drei Buttons (YouTube, Soundcloud, Google), wenn du nach dem Lied im Web suchen m&oumlchtest.</i></p><p>***</p><b><b>Lied 2 &#x2212 Titel:','<b>Lied 2 &#x2212 Name der K&uumlnstlerin/des K&uumlnstlers/der Band:','<p><b><p>***</p> <h3>Beschreibe das eben gew&aumlhlte Lied im n&aumlchsten Textfeld anhand von frei gew&aumlhlten Stichw&oumlrtern (mindestens drei)!</h3></b> <p>Gerne kannst Du auch aus diesen zwei Listen von <a class="fancybox" href="#inline1" title="Emotionsw&oumlrter"> <font size="5">Emotionsw&oumlrtern</font></a> und <a class="fancybox" href="#inline2" title="Genrebezeichnungen"><font size="5">Genrebezeichnungen</font></a> ausw&aumlhlen: <p></p><p> '],// 'Adjektive (mind. 2)','Genre 1, Link 2','Adjektive (mind. 2)', 'Genre 2, Link 1','Adjektive (mind. 2)', "Genre 2, Link 2",'Adjektive (mind. 2)'],
+	  //preamble: ['<img src="img/bild_test.png" style="width:50%;height:auto;">'],
+      };
+
+    var genreInput_Genre1Link3 = {
+        type: 'survey-text-fb',
+      questions: ['<b><h3>Nenne nun noch ein letztes Lied, welches Du zur Zeit h&aumlufig h&oumlrst!</h3> </b><p><p><i>Vorsicht: Klicke abermals auf einen der drei Buttons (YouTube, Soundcloud, Google), wenn du nach dem Lied im Web suchen m&oumlchtest.</i></p><p>***</p><b><b>Lied 3 &#x2212 Titel:','<b>Lied 3 &#x2212 Name der K&uumlnstlerin/des K&uumlnstlers/der Band:','<p><b><p>***</p> <h3>Beschreibe das eben gew&aumlhlte Lied im n&aumlchsten Textfeld anhand von frei gew&aumlhlten Stichw&oumlrtern (mindestens drei)!</h3></b> <p>Gerne kannst Du auch aus diesen zwei Listen von <a class="fancybox" href="#inline1" title="Emotionsw&oumlrter"> <font size="5">Emotionsw&oumlrtern</font></a> und <a class="fancybox" href="#inline2" title="Genrebezeichnungen"><font size="5">Genrebezeichnungen</font></a> ausw&aumlhlen: <p></p><p> '],// 'Adjektive (mind. 2)','Genre 1, Link 2','Adjektive (mind. 2)', 'Genre 2, Link 1','Adjektive (mind. 2)', "Genre 2, Link 2",'Adjektive (mind. 2)'],
+	  //preamble: ['<img src="img/bild_test.png" style="width:50%;height:auto;">'],
+
+      };
+
+      var genreInput_Genre2Link2 = {
+          type: 'survey-text',
+          questions: ['<p><b> Link eines Songs </b></p> W&aumlhle einen Song aus den Du zur Zeit h&aumlufig h&oumlrst und f&uumlge den Link dazu (z.B. Youtube.com), in das folgende Textfeld ein','<p><b>Wie w&uumlrdest du dieses Lied gef&uumlhlsm&auml&szligig beschreiben? </b></p>W&aumlhle aus den vorgegebenen Adjektiven aus, f&uumlge Sie in das Textfeld und trenne Sie durch Beistriche','Erg&aumlnze jene Adjektive die f&uumlr dich passend erscheinen und nicht in der Liste aufgef&uumlhrt sind'],// 'Adjektive (mind. 2)','Genre 1, Link 2','Adjektive (mind. 2)', 'Genre 2, Link 1','Adjektive (mind. 2)', "Genre 2, Link 2",'Adjektive (mind. 2)'],
+          //preamble: ['<img src="img/adjectives.png" style="width:90%;height:auto;">'],
+
+        };
+
+  var genreSupplement = {
+      type: 'survey-text2',
+      questions: [''],
+      preamble: ['<h3>Gibt es Genres, die Du gerne h\u00f6rst und nicht gelistet waren?<br>Wenn ja, dann trage diese getrennt durch Beistriche in die Textbox ein: </h3>']
+  };
+
+  var filler_page = {
+    type: "single-stim",
+    is_html: false,
+    choices: [13],
+    timing_post_trial: 10,
+    prompt: "<p> <b>Vielen Dank!</b> </p> <p>Die Aufgaben zum divergenten Denken hast Du somit absolviert.</p> <p>***</p> Dr&uumlcke die Enter-Taste, um nun zum Fragebogen &uumlber kreative Aktivit&aumlten in Deinem Alltagsleben zu gelangen."
+
+  };
+
+  var contact = {
+        type: "single-stim",
+        is_html: false,
+        choices: [13],
+        timing_post_trial: 10,
+        prompt: "<p><b>Herzlichen Dank, Du hast nun alle Aufgaben absolviert. </b><br> <p>***</p>Um diesen Teil der Online-Studie abzuschlie\u00dfen, bitten wir Dich, Deine Daten herunterzuladen und an <b>fwf.omfix@gmx.com</b> mit Betreff <i>OMIFX_Daten Studie3/Teil1</i> zu schicken. </p><p> Dr&uumlcke die Enter-Taste, um den Download zu beginnen. <b>Achtung:</b> Wenn Du versehentlich mit dem Safari-Browser gearbeitet hast, werden die Daten nicht als Datei heruntergeladen, sondern auf der nachfolgenden Seite angezeigt. In diesem Fall bitten wir Dich, diese angezeigten Daten zu markieren (cmd+A gefolgt von cmd+C bzw. strg+a gefolgt von strg+c) und in eine Textdatei einzuf&uumlgen (cmd+v bzw. str+v), die Du an uns schickst. Bitte gib uns per E-Mail Bescheid, wenn Probleme auftreten.</p>  <p> Dr&uumlcke nun die Enter-Taste."
+    };
+
+
+  var timeline =[
+	  demog_block,
+    instruction_block,
+    test_block_1,
+    test_block_2,
+    test_block_3,
+    outro
+    ];
+
+  jsPsych.init({
+    display_element: $('#jspsych-target'),
+    timeline: timeline,
+    fullscreen: false,
+    show_progress_bar: true,
+
+    on_finish: function() {
+      var name = jsPsych.data.getLastTimelineData();
+      console.log(name[0]);
+      var demog = name[0];
+      console.log(demog.responses);
+
+      var subjID =  jsPsych.data.getDataByTimelineNode("0.0-0.0");
+      console.log(subjID);
+
+      jsPsych.data.localSave('AUT_subjID_' + subjID[0].responses.slice(7,15) + '.txt', 'csv');
+      alert('Deine Daten: (' +
+        'AUT_' +  subjID[0].responses.slice(7,15) + '.txt)' +' werden gerade heruntergeladen. Bitte klicken Sie auf den Button, um den Vorgang abzuschlie\u00dfen.'
+	  );
+      sendMail();
+	  jsPsych.data.displayData();
+
+    }
+  });
+
+
+  </script>
+</html>
